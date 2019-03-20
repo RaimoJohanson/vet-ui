@@ -1,0 +1,23 @@
+
+.example-card {
+  width: 20em;
+  background-color:rgba(255, 255, 255, 0.8);
+}
+.login-button {
+  text-align:center;
+}
+.example-form {
+  display:flex;
+  flex-direction: column;
+}
+.container {
+  height: 80%;
+  display: flex;           /* establish flex container */
+  flex-direction: column;  /* make main axis vertical */
+  justify-content: center; /* center items vertically, in this case */
+  align-items: center;     /* center items horizontally, in this case */
+  // background-image: linear-gradient(to top, #0099ff, #00bbff, #00d7ff, #00eed4, #00ff9a);
+  // background-image: url('https://barkforce.com/wp-content/uploads/2018/02/dog-vet.jpg');
+  background-repeat: no-repeat;
+  background-position: right bottom;
+}

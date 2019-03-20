@@ -1,0 +1,21 @@
+<div class="container">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title></mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="E-post" [(ngModel)]="email" name="email" required>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Salasõna" [(ngModel)]="password" type="password" name="password" required>
+        </mat-form-field>
+        <mat-checkbox [(ngModel)]="rememberMe" name="rememberMe">Jäta mind meelde</mat-checkbox><br/>
+        <button mat-raised-button (click)="login()" color="accent">Logi sisse</button>
+      </form>
+    </mat-card-content>
+    <mat-card-actions class="login-button">
+    </mat-card-actions>
+  </mat-card>
+</div>

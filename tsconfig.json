@@ -1,7 +1,6 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -17,6 +16,13 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "suppressImplicitAnyIndexErrors": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@app/*": [
+        "app/*"
+      ]
+    },
   }
 }

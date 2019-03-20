@@ -1,0 +1,68 @@
+<div class="container lead" style="margin: 20px auto">
+  <div class="row"> 
+    <div class="col">
+      <mat-card style="padding: 24px;">
+        <mat-card-title *ngIf="dataset.length">Võimalikud variandid</mat-card-title>
+        <table class="table table-hover">
+          <tbody>
+            <tr *ngFor="let item of dataset">
+              <td style="width: 50px">
+                <span> {{ (item.probability) * 100 }}%</span> 
+              </td>
+              <td style="width: 50px">
+                <span *ngIf="endorsed" class="badge badge-pill badge-primary" ng-click="endorse(fault)" style="cursor:pointer">This is it!</span>
+                <span *ngIf="!endorsed" style="color: #00bc4e"><i class="fas fa-check-circle"></i></span>
+              </td>
+              <td>{{item.value}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <h5 style="color: #4c4c4c" *ngIf="!dataset.length">
+          Ma ei oska midagi arvata. Kui tead vastust, siis lisa haigusjuhtum.
+        </h5>
+        <div class="row" style="margin-top:40px;">
+            <div class="col text-left">
+              <a routerLink="/">
+                <button type="button" class="btn btn-primary" mat-raised-button color="primary">
+                    <i class="fas fa-sync-alt"></i> Uuesti
+                </button>
+              </a>
+            </div>
+            <div class="col text-right">
+              <a routerLink="/contribute">
+                <button type="button" mat-raised-button>
+                    <i class="fas fa-plus"></i> Lisa haigusjuhtum
+                </button>
+              </a>
+            </div>
+          </div>
+      </mat-card>
+    </div>
+  </div>
+  <div class="row my-4">
+    <div class="col">
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>Küsimuste vastused</mat-panel-title>
+              <mat-panel-description></mat-panel-description>
+            </mat-expansion-panel-header>
+        
+            <table class="table table-striped text-left lead mt-4">
+              <tbody>
+                <tr *ngFor="let record of InteractionsStore.records$ | async">
+                  <td>{{record.value}}</td>
+                  <td>
+                    <span class="font-weight-bold answer"
+                      [ngClass]="{'true': (record.input === 1), 'not-true': (record.input !== 1)}">
+                      {{inputMap[record.input]}}
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+  </div>
+</div>

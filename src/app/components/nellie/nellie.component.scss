@@ -1,0 +1,28 @@
+.container {
+  height: 80%;
+  display: flex;           /* establish flex container */
+  flex-direction: column;  /* make main axis vertical */
+  justify-content: center; /* center items vertically, in this case */
+  align-items: center;     /* center items horizontally, in this case */
+  font-size: 1.3rem;
+  align-content: center;
+}
+.loader {
+  opacity: 0;
+}
+.show-loader {
+  opacity: 1;
+  align-self: auto
+}
+
+.loader-ring {
+  display: block;
+  margin: 0 auto;
+}
+.busy-text {
+  opacity: 0.6;
+}
+.app-button {
+  margin: 15px;
+  min-width: 150px;
+}

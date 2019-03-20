@@ -1,0 +1,24 @@
+<div class="container">
+  <!-- flex -->
+  <!-- <img *ngIf="loading" class="loader-ring" src="/assets/img/dual_ring-0.9s-200px.svg"> -->
+  <div class="container lead">
+    <div class="row">
+        <div class="col text-center">
+            <img class="loader" [ngClass]="{'show-loader' : loading }" src="/assets/img/Ball-0.4s-50px.svg"> <br />
+            <span [ngClass]="{'busy-text' : loading }">{{ displayedQuestion }}</span>
+        </div>
+    </div>
+    <div class="row" style="margin: 20px">
+      <div class="col-md-4 text-center">
+        <button type="button" class="app-button" mat-raised-button color="accent" (click)="userInteraction(1)">Jah</button>
+      </div>
+      <div class="col-md-4 text-center">
+        <button type="button" class="app-button" mat-raised-button color="accent" (click)="userInteraction(2)">Ei tea</button>
+      </div>
+      <div class="col-md-4 text-center">
+        <button type="button" class="app-button" mat-raised-button color="accent" (click)="userInteraction(0)">Ei</button>
+      </div>
+    </div>
+  </div>
+  <!-- flex -->
+</div>

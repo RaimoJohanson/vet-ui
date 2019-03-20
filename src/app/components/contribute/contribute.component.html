@@ -1,0 +1,82 @@
+
+<mat-card style="margin: 20px auto; max-width: 75rem;">
+<mat-card-title>Haigusjuhtumi lisamine</mat-card-title>
+<mat-horizontal-stepper #stepper class="mt-4" [linear]="true" *ngIf="showForm">
+  <mat-step [stepControl]="stepOne">
+    <ng-template matStepLabel>Diagnoos</ng-template>
+    <form class="example-form" #stepOne="ngForm">
+      <mat-form-field class="example-full-width">
+        <input 
+          type="text"
+          placeholder="Diagnoos"
+          matInput
+          [(ngModel)]="newDecision" name="decision" required
+          (ngModelChange)="updateDecisionOptions()"
+          [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayWith">
+          <mat-option *ngFor="let item of decisionOptions" [value]="item">
+            {{ item.value }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+    <button mat-button routerLink="/results" matStepperPrevious>Tagasi</button>
+    <button mat-button matStepperNext>Edasi</button>
+  </mat-step>
+  <mat-step [stepControl]="stepTwo">
+    <ng-template matStepLabel>Küsimused</ng-template>
+    <h5>{{ displayWith(newDecision) }}</h5>
+    <mat-list role="list">
+      <mat-list-item role="listitem" *ngFor="let item of filteredInteractions">
+        {{ item.value }}
+      </mat-list-item>
+      <mat-list-item role="listitem" *ngFor="let feature of features; let index = index;">
+        {{ displayWith(feature.value) }}
+        <button mat-icon-button (click)="removeFeature(index)">
+          <i class="fas fa-times"></i>
+        </button>
+      </mat-list-item>
+    </mat-list>
+    <form #stepTwo="ngForm">
+      <mat-form-field class="example-full-width">
+        <input 
+          type="text"
+          placeholder="Lisa küsimus"
+          matInput
+          (keyup.enter)="featureAddNewFeature()"
+          [(ngModel)]="newFeature" name="newFeature"
+          (ngModelChange)="updateFeatureOptions()"
+          [matAutocomplete]="auto2">
+        <mat-autocomplete #auto2="matAutocomplete"
+          (optionSelected)="featureOptionSelected($event)"
+          [displayWith]="displayWith">
+          <mat-option *ngFor="let item of featureOptions" [value]="item">
+            {{ item.value }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+    <button mat-button matStepperPrevious>Tagasi</button>
+    <button [disabled]="!((features.length + filteredInteractions.length) >= 3)"
+      mat-raised-button color="primary" class="float-right" (click)="submitForm()" matStepperNext>Salvesta</button>
+  </mat-step>
+</mat-horizontal-stepper>
+<!-- flex -->
+<div class="container lead" *ngIf="!showForm">
+  <div class="row text-center">
+      <div class="col">
+          <h4 style="color:#00bc4e;font-size: 4rem;"><i class="fas fa-check-circle"></i></h4>
+          <h4 class="display-4">Aitäh!</h4>
+          <p>Ma hindan head õppetundi</p>
+      </div>
+  </div>
+  <div class="row text-center" style="margin: 20px">
+      <div class="col">
+          <button mat-raised-button color="primary" type="button" routerLink="/">
+            <i class="fas fa-sync-alt"></i> Alusta uuesti
+          </button>
+      </div>
+  </div>
+</div>
+<!-- flex -->
+</mat-card>

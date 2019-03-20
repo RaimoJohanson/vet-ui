@@ -1,0 +1,22 @@
+
+<mat-toolbar class="mat-elevation-z2" *ngIf="isLoggedIn()" style="color: #747474">
+    <span></span>
+    <span style="flex: 1 1 auto"></span>
+    <button mat-button [matMenuTriggerFor]="menu">
+      <i class="fas fa-user-circle" style="font-size: 2em;"></i>
+    </button>
+    <mat-menu #menu="matMenu">
+      <span>{{ authService.currentUserValue.account.first_name }} {{ authService.currentUserValue.account.last_name }}</span>
+      <button mat-menu-item class="logout-button" color="accent" (click)="logout()">
+        <i class="fas fa-sign-out-alt"></i> Logi välja
+      </button>
+    </mat-menu>
+</mat-toolbar>
+<div class="version">v 1.0.0</div>
+
+<!--
+  *ngIf="isLoggedIn()"
+  <button mat-raised-button class="logout-button" color="accent" (click)="logout()">
+    <i class="fas fa-sign-out-alt"></i> Logi välja
+  </button>
+-->
