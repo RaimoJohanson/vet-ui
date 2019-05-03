@@ -3,25 +3,31 @@ import { NellieService } from '@app/services/nellie.service';
 import { InteractionStoreService } from '@app/services/interaction.store.service';
 import { DatasetStoreService } from '@app/services/dataset.store.service';
 import { Router } from '@angular/router';
-import { FormControl, FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormControl, FormArray, FormBuilder, FormGroup, Validators,
+} from '@angular/forms';
 import { debounceTime, switchMap, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-contribute',
   templateUrl: './contribute.component.html',
-  styleUrls: ['./contribute.component.scss']
+  styleUrls: ['./contribute.component.scss'],
 })
 export class ContributeComponent implements OnInit, OnDestroy {
   showForm: boolean = true;
 
-  features = []; 
+  features = [];
+
   filteredInteractions;
+
   interactionRecords: any = [];
 
   newDecision;
+
   newFeature;
 
   featureOptions = [];
+
   decisionOptions = [];
 
   private subscriptions = [];

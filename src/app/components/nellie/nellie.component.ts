@@ -14,23 +14,30 @@ interface Question {
 }
 
 const CONFIG = {
-  minimalGain: 0.1
-}
+  minimalGain: 0.1,
+};
 
 @Component({
   selector: 'app-nellie',
   templateUrl: './nellie.component.html',
-  styleUrls: ['./nellie.component.scss']
+  styleUrls: ['./nellie.component.scss'],
 })
 export class NellieComponent implements OnInit {
   public currentQuestion: Question;
+
   public displayedQuestion: string;
+
   public interactions: {}[] = [];
+
   public interactionsYES: {}[] = [];
+
   public busy = false;
+
   public loading = false;
+
   public data: any = [];
-  private hit_count = 0;
+
+  private hitCount = 0;
 
   constructor(
     public nellieService: NellieService,
@@ -50,14 +57,14 @@ export class NellieComponent implements OnInit {
     if (this.busy) return;
     this.busy = true;
     this.currentQuestion.input = input;
-    this.interactions = [...this.interactions, this.currentQuestion ];
+    this.interactions = [...this.interactions, this.currentQuestion];
     this.InteractionsStore.updateInteractionRecords(this.interactions);
     if (input === 1) {
-      this.hit_count++;
+      this.hitCount += 1;
       this.interactionsYES = [...this.interactionsYES, this.currentQuestion];
       this.InteractionsStore.updateQuestionsThatWereYes(this.interactionsYES);
     }
-    if (input != 2) {
+    if (input !== 2) {
       this.data = this.calcFitness(this.data, this.interactions);
       console.log(this.data);
       // console.log('Length of trainingData before trimming:', $rootScope.trainingData.length);
@@ -71,69 +78,47 @@ export class NellieComponent implements OnInit {
     if (this.currentQuestion.gain > CONFIG.minimalGain) {
       this.displayQuestion(this.currentQuestion);
     } else if (this.currentQuestion.id) {
-      //min $rootScope.sessionHistory.hit_count = 3
       this.displayQuestion(this.currentQuestion);
-    }
-    else {
+    } else {
       this.data = this.trim(this.data, this.interactions);
       this.DatasetStore.update(this.data);
       this.router.navigateByUrl('/results');
     }
-  };
+  }
 
   displayQuestion(currentQuestion: Question) {
     this.loading = true;
 
     const featureSub = this.nellieService
-    .getFeature(currentQuestion.id)
-    .subscribe((data: Feature) => {
-
-      this.currentQuestion.value = data.value;
-      this.displayedQuestion = this.currentQuestion.value;
-      this.loading = false; //buttons are active
-
-      featureSub.unsubscribe();
-      this.busy = false;
-    });
+      .getFeature(currentQuestion.id)
+      .subscribe((data: Feature) => {
+        this.currentQuestion.value = data.value;
+        this.displayedQuestion = this.currentQuestion.value;
+        this.loading = false; // buttons are active
+        featureSub.unsubscribe();
+        this.busy = false;
+      });
   }
 
   calcFitness(data, interactions) {
-    data.forEach(subject => {
-        let matches = 0;
-        interactions.forEach(record => {
-          if (record.input === 1) {
-            if (subject.features.indexOf(Number(record.id)) > -1) matches++;
-            else matches--;
-          }
-        });
-        if (this.hit_count !== 0) subject.fitness = matches / this.hit_count;
-        else subject.fitness = 0;
+    data.forEach((subject) => {
+      let matches = 0;
+      interactions.forEach((record) => {
+        if (record.input === 1) {
+          if (subject.features.indexOf(Number(record.id)) > -1) matches += 1;
+          else matches -= 1;
+        }
+      });
+      if (this.hitCount !== 0) subject.fitness = matches / this.hitCount;
+      else subject.fitness = 0;
     });
     return data;
-  };
+  }
 
   trim(data, interactions) {
-    const fitness_sum = data.reduce((total, current) => total + current.fitness, 0);
-    const avg_fitness = fitness_sum / data.length;
-    // console.log('Fitness sum:',fitness_sum);
-    // console.log('Average fitness:', avg_fitness);
-    //console.log(data);
-  
-    const immune = data.filter(item => item.fitness >= avg_fitness);
-    // console.log('Labels that have higher than average fitness: ', output.length);
-    // console.log('dataset length after sorting immune labels: ', data.length);
-    
-    let unimmune = data.filter(item => item.fitness < avg_fitness);
-
-    interactions.forEach(record => { //update data per each interaction;
-      if (record.input < 2) {
-        unimmune = prune(unimmune, record.id, record.input);
-      }
-    });
-
     function prune(dataset, id, decision) {
-      let cache = [];
-      dataset.forEach(subject => {
+      const cache = [];
+      dataset.forEach((subject) => {
         switch (decision) {
           case 1:
             if (subject.features.indexOf(Number(id)) > -1) {
@@ -151,6 +136,20 @@ export class NellieComponent implements OnInit {
       });
       return cache;
     }
+    const fitnessSum = data.reduce((total, current) => total + current.fitness, 0);
+    const averageFitness = fitnessSum / data.length;
+
+    const immune = data.filter(item => item.fitness >= averageFitness);
+    // console.log('Labels that have higher than average fitness: ', output.length);
+    // console.log('dataset length after sorting immune labels: ', data.length);
+
+    let unimmune = data.filter(item => item.fitness < averageFitness);
+
+    interactions.forEach((record) => { // update data per each interaction;
+      if (record.input < 2) {
+        unimmune = prune(unimmune, record.id, record.input);
+      }
+    });
 
     return [...immune, ...unimmune];
   }
@@ -161,15 +160,15 @@ export class NellieComponent implements OnInit {
      */
     if (history.length < 1) return features[0];
 
-    for (let i = 0; i < features.length; i++) {
-        let flag = 1;
-        for (let x = 0; x < history.length; x++) {
-            if (features[i].id == history[x].id) {
-                flag = 0;
-                break;
-            }
+    for (let i = 0; i < features.length; i += 1) {
+      let flag = 1;
+      for (let x = 0; x < history.length; x += 1) {
+        if (features[i].id == history[x].id) {
+          flag = 0;
+          break;
         }
-        if (flag) return features[i];
+      }
+      if (flag) return features[i];
     }
     return { id: false, gain: CONFIG.minimalGain };
   }
@@ -177,14 +176,14 @@ export class NellieComponent implements OnInit {
   ngOnInit() {
     this.InteractionsStore.updateQuestionsThatWereYes([]);
     this.InteractionsStore.updateInteractionRecords([]);
-    this.nellieService.getData().subscribe(data => {
-        this.data = data;
-        if (!this.data.length) return this.router.navigateByUrl('/contribute');
+    this.nellieService.getData().subscribe((data) => {
+      this.data = data;
+      if (!this.data.length) this.router.navigateByUrl('/contribute');
+      else {
         const calculated = this.nellieService.calculateFeature(this.data);
-        this.currentQuestion = this.checkHistory(calculated, this.interactions); //initialize asking...
+        this.currentQuestion = this.checkHistory(calculated, this.interactions);
         this.displayQuestion(this.currentQuestion);
       }
-    );
+    });
   }
-
 }

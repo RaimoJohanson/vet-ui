@@ -2,9 +2,31 @@ mat-toolbar {
   background-color: white;
 }
 .version {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   right: 0;
   padding-right: 5px;
   color: #d6d3d3
+}
+.logo {
+  font-weight: 300;
+}
+
+.titlebox {
+  display: flex;
+  align-items: center;
+}
+.title {
+  font-size: 1.2em;
+  font-weight: 400;
+  display: block;
+}
+.subtitle {
+  font-weight: 400;
+  font-size: 0.9em;
+  margin-top: -15px;
+  display: block;
+}
+.avatar {
+  padding: 10px;
 }
