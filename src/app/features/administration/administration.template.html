@@ -1,0 +1,15 @@
+<div class="layout-wrapper"> 
+  <div class="sidenav mat-elevation-z8">
+    <ul>
+      <li *ngFor="let item of sidemenu" routerLinkActive="active">
+        <a [routerLink]="item.link">
+          <i class="fas {{item.icon}}"></i>
+          {{ item.label }}
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

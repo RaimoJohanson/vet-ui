@@ -9,9 +9,13 @@ mat-toolbar {
   color: #d6d3d3
 }
 .logo {
-  font-weight: 300;
+  // font-weight: 300;
+  cursor: pointer;
 }
-
+.toolbar {
+  position: fixed;
+  height: 65px;
+}
 .titlebox {
   display: flex;
   align-items: center;
@@ -29,4 +33,8 @@ mat-toolbar {
 }
 .avatar {
   padding: 10px;
+}
+
+.menu-button {
+  width: 200px;
 }

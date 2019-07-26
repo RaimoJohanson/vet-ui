@@ -1,0 +1,60 @@
+<mat-dialog-content class="mat-typography">
+  <h2>{{ data.value }}</h2>
+  <mat-tab-group style="min-height: 300px;">
+    <mat-tab>
+      <ng-template mat-tab-label><mat-icon class="merge_type">call_merge</mat-icon> Liida</ng-template>
+      <div class="tab-content">
+        <p>Otsi olemasolevate sümptomite hulgast sobiv sümptom, millega tahad <b>"{{ data.value }}"</b> kokku liita.</p>
+        <form [formGroup]="mergeForm" (ngSubmit)="submitMerge()">
+          <div>
+            <mat-form-field style="width:100%;">
+              <input matInput placeholder="Otsisõna" [matAutocomplete]="auto" formControlName="searchphrase">
+              <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                <mat-option *ngFor="let result of searchresults" [value]="result">
+                    {{ result.value }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+            <div *ngIf="searchphrase.value.value">
+              <p><b>"{{ data.value }}"</b> sümptom asendatakse kõikides haigusjuhtumites <b>"{{ searchphraseValue }}"</b> sümptomiga.</p>
+            </div>
+          </div>
+          <div class="spacer"></div>
+          <div class="form-buttons">
+            <div *ngIf="searchphrase.value.value" style="color: #ff0000; padding: 5px;">
+              <span><i class="fas fa-exclamation-triangle" style="line-height: inherit;"></i></span>
+              <span><b> Pärast liitmist <b>"{{ data.value }}"</b> kustutatakse</b></span>
+            </div>
+            <button mat-raised-button (click)="onNoClick()">Katkesta</button>
+            <button mat-raised-button color="accent" type="submit"
+              [disabled]="!searchphrase.value.value">Liida</button>
+          </div>
+        </form>
+      </div>  
+    </mat-tab><!-- /tab-->
+    <mat-tab>
+      <ng-template mat-tab-label><mat-icon class="example-tab-icon">edit</mat-icon> Muuda</ng-template>
+      <div class="tab-content">
+        <form (ngSubmit)="submitEdit()">
+          <div>
+            <mat-form-field style="width:100%;">
+              <input matInput required name="formdata" [(ngModel)]="formdata.value">
+            </mat-form-field>
+          </div>
+          <div class="spacer"></div>
+          <div class="form-buttons">
+            <button mat-raised-button (click)="onNoClick()">Katkesta</button>
+            <button mat-raised-button color="accent" type="submit"
+              [disabled]="data.value === formdata.value">Salvesta</button>
+          </div>
+        </form>
+      </div>
+    </mat-tab> <!-- /tab-->
+  </mat-tab-group>
+</mat-dialog-content>
+<!--
+<mat-dialog-actions style="float: right">
+  <button mat-raised-button (click)="onNoClick()">Katkesta</button>
+  <button mat-raised-button color="accent" [mat-dialog-close]="formdata" cdkFocusInitial>Salvesta</button>
+</mat-dialog-actions>
+-->

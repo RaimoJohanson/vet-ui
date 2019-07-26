@@ -1,0 +1,28 @@
+<div class="card-container" *ngIf="!loading">
+  <mat-card class="mat-elevation-z8">
+    <mat-card-header>
+      <mat-card-title>Haigusjuhtumeid</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div style="padding:20px; font-size: 5rem;">{{ instances.length }}</div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="mat-elevation-z8">
+    <mat-card-header>
+      <mat-card-title>Diagnoose</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div style="padding:20px; font-size: 5rem;">{{ decisions.length }}</div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="mat-elevation-z8">
+    <mat-card-header>
+      <mat-card-title>Sümptomeid</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div style="padding:20px; font-size: 5rem;">{{ features.length }}</div>
+    </mat-card-content>
+  </mat-card>
+</div>

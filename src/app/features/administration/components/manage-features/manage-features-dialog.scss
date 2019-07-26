@@ -1,0 +1,29 @@
+.tab-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  height: 100%;
+  padding: 5px;
+  padding-top: 40px;
+  form {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    .form-buttons {
+      display: flex;
+      justify-content: flex-end;
+      button {
+        margin-left: 15px;
+      }
+    }
+  }
+}
+.spacer {
+  flex-grow: 1;
+}
+::ng-deep .mat-tab-body-wrapper{
+  flex-grow: 1;
+}
+mat-tab-body {
+  flex-grow: 1;
+}

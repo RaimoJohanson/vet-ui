@@ -8,15 +8,15 @@ import { AuthGuard } from '@app/services/auth.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  { path: 'admin', loadChildren: () => import('../features/administration').then(m => m.AdministrationModule) },
   { path: '', component: NellieComponent, canActivate: [AuthGuard] },
   { path: 'results', component: ResultsComponent, canActivate: [AuthGuard] },
   { path: 'contribute', component: ContributeComponent, canActivate: [AuthGuard] },
-  
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: false})],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes, { useHash: false })],
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}

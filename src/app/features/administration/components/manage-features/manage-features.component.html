@@ -1,0 +1,35 @@
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource">
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let element"> {{ element.id }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="instances">
+        <th mat-header-cell *matHeaderCellDef>Esinemissagedus</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.instances }}
+        </td>
+      </ng-container>
+  
+    <ng-container matColumnDef="value">
+      <th mat-header-cell *matHeaderCellDef> Sümptom </th>
+      <td mat-cell *matCellDef="let element"> {{ element.value }} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="created_at">
+      <th mat-header-cell *matHeaderCellDef> Lisatud </th>
+      <td mat-cell *matCellDef="let element"> {{ element.created_at | date }} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="updated_at">
+      <th mat-header-cell *matHeaderCellDef> Muudetud </th>
+      <td mat-cell *matCellDef="let element"> {{ element.updated_at | date }} </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
+    <tr mat-row (click)="openDialog(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

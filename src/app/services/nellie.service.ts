@@ -9,18 +9,17 @@ export interface Feature {
   id: number;
   value: string;
 }
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NellieService {
- 
+
   constructor(public http: HttpClient) {}
   getData() {
     return this.http.get(`${NELLIE_API_URL}/data`);
   }
-  submitData(payload){
-    return this.http.post(`${NELLIE_API_URL}/data`, payload);
+  submitData(payload) {
+    return this.http.post(`${NELLIE_API_URL}/data`, payload).toPromise();
   }
   autocompleteDecisions(phrase: string){
     return this.http.get(`${NELLIE_API_URL}/decisions/autocomplete?phrase=${phrase}`);

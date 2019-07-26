@@ -1,6 +1,8 @@
 
-<mat-toolbar class="mat-elevation-z2" *ngIf="isLoggedIn()" style="color: #747474">
-    <span class="logo">THE PET PROJECT</span>
+<mat-toolbar class="toolbar mat-elevation-z5" *ngIf="isLoggedIn()" style="color: #747474">
+    <span class="logo" (click)="handleMenuClick('frontpage')">
+        <i class="fas fa-paw" style="font-size: 1.5rem;"></i> Vet<span style="color: #FF4081">Base</span>
+    </span>
     <span style="flex: 1 1 auto"></span>
     <button mat-button [matMenuTriggerFor]="menu">
       <div class="titlebox">
@@ -12,18 +14,24 @@
           <span class="subtitle">Loomaarst</span>
         </div>
         <div class="avatar">
-          <i class="fas fa-user-circle" style="font-size: 2em;"></i>
+          <i class="fas fa-user-circle" style="font-size: 2.5rem;"></i>
         </div>
       </div>
     </button>
     <mat-menu #menu="matMenu">
-        <button mat-menu-item class="logout-button" color="accent" (click)="logout()">
+      <button tabindex="0" mat-menu-item class="menu-button" color="accent" (click)="handleMenuClick('admin')">
+        <i class="fas fa-cog"></i> Seaded
+      </button>
+      <button tabindex="1" mat-menu-item class="menu-button" color="accent" (click)="handleMenuClick('admin')">
+        <i class="fas fa-tools"></i> Haldus
+      </button>
+      <hr>
+      <button tabindex="2" mat-menu-item class="menu-button" color="accent" (click)="handleMenuClick('logout')">
         <i class="fas fa-sign-out-alt"></i> Logi välja
       </button>
     </mat-menu>
 </mat-toolbar>
-<div class="version">v 1.0.1</div>
-
+<div class="version">v {{appVersion}}</div>
 <!--
   *ngIf="isLoggedIn()"
   <button mat-raised-button class="logout-button" color="accent" (click)="logout()">

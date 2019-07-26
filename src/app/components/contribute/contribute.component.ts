@@ -77,26 +77,28 @@ export class ContributeComponent implements OnInit, OnDestroy {
     console.log(index);
     this.features.splice(index, 1);
   }
-  submitForm() {
-    console.log(this.newDecision);
-    console.log(this.features);
-    console.log(this.filteredInteractions);
+  async submitForm() {
+    try {
+      console.log(this.newDecision);
+      console.log(this.features);
+      console.log(this.filteredInteractions);
 
-    const decision = this.newDecision.value
-      ? this.newDecision
-      : { value: this.newDecision }
-    
-    const payload = {
-      decision,
-      features: [...this.features, ...this.filteredInteractions],
-    }
-    const subscription = this.nellieService.submitData(payload).subscribe(response => {
+      const decision = this.newDecision.value
+        ? this.newDecision
+        : { value: this.newDecision };
+
+      const payload = {
+        decision,
+        features: [...this.features, ...this.filteredInteractions],
+      };
+      const response = await this.nellieService.submitData(payload);
       console.log(response);
       this.showForm = false;
       this.InteractionsStore.updateQuestionsThatWereYes([]);
       this.InteractionsStore.updateInteractionRecords([]);
-    })
-    this.subscriptions = [...this.subscriptions, subscription];
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   ngOnInit() {

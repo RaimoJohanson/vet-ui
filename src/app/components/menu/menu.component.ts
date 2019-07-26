@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@app/services/auth.service';
+import { Router } from '@angular/router';
+
+const { version: appVersion } = require('../../../../package.json')
 
 @Component({
   selector: 'main-menu',
@@ -7,9 +10,14 @@ import { AuthService } from '@app/services/auth.service';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent {
+  public appVersion;
+
   constructor(
-    public authService: AuthService
-  ) {}
+    public authService: AuthService,
+    private router: Router,
+  ) {
+    this.appVersion = appVersion;
+  }
 
   isLoggedIn() {
     const currentUser = this.authService.currentUserValue;
@@ -19,4 +27,12 @@ export class MenuComponent {
     this.authService.logout();
   }
 
+  handleMenuClick(option) {
+    const options = {
+      frontpage: () => this.router.navigateByUrl('/'),
+      logout: () => this.authService.logout(),
+      admin: () => this.router.navigateByUrl('/admin/statistics'),
+    };
+    options[option]();
+  }
 }

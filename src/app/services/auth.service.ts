@@ -14,11 +14,11 @@ public currentUserSubject: BehaviorSubject<User>;
 public currentUser: Observable<User>;
 
 constructor(public http: HttpClient) {
-this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
-this.currentUser = this.currentUserSubject.asObservable();
+  this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+  this.currentUser = this.currentUserSubject.asObservable();
 }
 public get currentUserValue(): User {
-return this.currentUserSubject.value;
+  return this.currentUserSubject.value;
 }
 
   login(email: string, password: string) {
