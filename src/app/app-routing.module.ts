@@ -8,7 +8,16 @@ import { AuthGuard } from '@app/services/auth.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'admin', loadChildren: () => import('../features/administration').then(m => m.AdministrationModule) },
+  {
+    path: 'admin',
+    loadChildren: () => import('./features/administration/administration.module')
+      .then(m => m.AdministrationModule),
+  },
+  {
+    path: 'settings',
+    loadChildren: () => import('./features/settings/settings.module')
+      .then(m => m.SettingsModule),
+  },
   { path: '', component: NellieComponent, canActivate: [AuthGuard] },
   { path: 'results', component: ResultsComponent, canActivate: [AuthGuard] },
   { path: 'contribute', component: ContributeComponent, canActivate: [AuthGuard] },

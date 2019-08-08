@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DataTableComponent } from './instances.component';
+import { ProfileImageComponent } from './profile-image.component';
 
-describe('DataTableComponent', () => {
-  let component: DataTableComponent;
-  let fixture: ComponentFixture<DataTableComponent>;
+describe('ProfileImageComponent', () => {
+  let component: ProfileImageComponent;
+  let fixture: ComponentFixture<ProfileImageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [DataTableComponent],
+      declarations: [ ProfileImageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DataTableComponent);
+    fixture = TestBed.createComponent(ProfileImageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

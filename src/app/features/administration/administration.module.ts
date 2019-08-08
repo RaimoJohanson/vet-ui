@@ -1,16 +1,14 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { AdministrationComponent } from './administration.component';
-import { AdministrationRoutingModule } from './administation-routing.module';
-import { InstancesComponent } from './components/instances/instances.component';
-import { MaterialModule } from '@app/modules/material.module';
+import { AdministrationRoutingModule } from './administration-routing.module';
+import { InstancesComponent } from './containers/instances/instances.component';
+import { SharedModule } from '@app/modules/shared/shared.module';
 import { DataService } from '@app/services/data/data.service';
-import { StatisticsComponent } from './components/statistics/statistics.component';
+import { StatisticsComponent } from './containers/statistics/statistics.component';
 import {
   ManageFeaturesComponent, ManageFeaturesDialog,
-} from './components/manage-features/manage-features.component';
-import { ManageDecisionsComponent } from './components/manage-decisions/manage-decisions.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+} from './containers/manage-features/manage-features.component';
+import { ManageDecisionsComponent } from './containers/manage-decisions/manage-decisions.component';
 
 @NgModule({
   declarations: [
@@ -22,10 +20,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ManageFeaturesDialog,
   ],
   imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MaterialModule,
+    SharedModule,
     AdministrationRoutingModule,
   ],
   providers: [

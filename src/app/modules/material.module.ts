@@ -118,6 +118,6 @@ import {
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-   ],
+  ],
 })
 export class MaterialModule { }

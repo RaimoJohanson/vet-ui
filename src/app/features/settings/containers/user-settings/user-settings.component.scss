@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  profile-image {
+    margin: 0 auto;
+  }
+  form {
+    margin: 0 auto;
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+    mat-form-field {
+      width: 100%;
+    }
+    .button-row {
+      display: block;
+      button {
+        float: right;
+      }
+    }
+  }
+}

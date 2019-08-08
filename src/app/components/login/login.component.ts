@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
 import { MatDialog } from '@angular/material';
-import { AuthService } from '@app/services/auth.service';
+import { AuthService } from '@app/services/authentication/auth.service';
 import { MatSnackBar } from '@angular/material';
 
 const MESSAGES = {

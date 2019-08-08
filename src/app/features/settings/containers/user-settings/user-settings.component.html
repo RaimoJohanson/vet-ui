@@ -1,0 +1,28 @@
+<div class="container">
+  <profile-image
+    [src]="profileImageUrl"
+    (click)="facade.uploadProfileImage(profileForm)">
+  </profile-image>
+
+  <form [formGroup]="profileForm" (ngSubmit)="facade.submitUserSettings(profileForm)"> 
+    <mat-form-field>
+      <input formControlName="first_name" matInput placeholder="Eesnimi">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input formControlName="last_name" matInput placeholder="Perenimi">
+    </mat-form-field>
+    
+    <mat-form-field>
+      <input formControlName="profession" matInput placeholder="Amet">
+    </mat-form-field>
+    
+    <mat-form-field>
+      <input formControlName="email" type="email" matInput placeholder="Email">
+    </mat-form-field>
+
+    <div class="button-row">
+      <button mat-raised-button color="accent" type="submit" [disabled]="false">Salvesta</button>
+    </div>
+  </form>
+</div>

@@ -25,7 +25,7 @@
               <span><i class="fas fa-exclamation-triangle" style="line-height: inherit;"></i></span>
               <span><b> Pärast liitmist <b>"{{ data.value }}"</b> kustutatakse</b></span>
             </div>
-            <button mat-raised-button (click)="onNoClick()">Katkesta</button>
+            <button mat-raised-button (click)="onNoClick()" type="button">Katkesta</button>
             <button mat-raised-button color="accent" type="submit"
               [disabled]="!searchphrase.value.value">Liida</button>
           </div>
@@ -43,7 +43,7 @@
           </div>
           <div class="spacer"></div>
           <div class="form-buttons">
-            <button mat-raised-button (click)="onNoClick()">Katkesta</button>
+            <button mat-raised-button (click)="onNoClick()" type="button">Katkesta</button>
             <button mat-raised-button color="accent" type="submit"
               [disabled]="data.value === formdata.value">Salvesta</button>
           </div>

@@ -1,0 +1,15 @@
+<div class="container">
+  <form [formGroup]="form" (ngSubmit)="facade.submitSecuritySettings(form)"> 
+    <mat-form-field>
+      <input type="password" formControlName="password" matInput placeholder="Salasõna">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input type="password" formControlName="passwordcheck" matInput placeholder="Korda salaõna">
+    </mat-form-field>
+
+    <div class="button-row">
+      <button mat-raised-button color="accent" type="submit" [disabled]="false">Salvesta</button>
+    </div>
+  </form>
+</div>
