@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '@app/services/authentication/auth.service';
-import { MaterialModule } from '../material.module';
+import { MaterialModule } from '../angular-material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModuleWithProviders } from '@angular/compiler/src/core';
+import { MatPaginatorIntl } from '@angular/material';
+import { MatPaginatorIntlEst } from '../angular-material/matpaginatorintl-est';
 
 @NgModule({
   declarations: [],
@@ -19,6 +21,7 @@ import { ModuleWithProviders } from '@angular/compiler/src/core';
     FormsModule,
     ReactiveFormsModule,
   ],
+  providers: [{ provide: MatPaginatorIntl, useClass: MatPaginatorIntlEst }],
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders {

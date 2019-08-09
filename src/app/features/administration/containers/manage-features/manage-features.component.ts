@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { DataService } from '@app/services/data/data.service';
-import { Feature } from '@app/services/data/data.models';
+import { Feature, FetchOptions, FeaturesPage, Pagination } from '@app/services/data/data.models';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-manage-features',
@@ -10,17 +10,25 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./manage-features.component.scss'],
 })
 export class ManageFeaturesComponent implements OnInit {
-  public displayedColumns: string[] = ['value', 'instances', 'created_at', 'updated_at'];
-  public dataSource: Feature[];
+  public displayedColumns: string[] = ['value', 'instances', 'created_at', 'updated_at', 'buttons'];
+
+  public list: Feature[];
+  public pagination: Pagination = {};
+  public pageSizeOptions: number[] = [5, 10, 25, 100];
 
   constructor(
     private dataService: DataService,
     public dialog: MatDialog,
   ) {}
 
-  async fetchData() {
-    this.dataSource = await this.dataService.features();
-    console.log(this.dataSource);
+  ngOnInit() {
+    this.fetchData();
+  }
+
+  async fetchData(options: FetchOptions = {}) {
+    const { list, pagination } = await this.dataService.featuresPage(options);
+    this.list = list;
+    this.pagination = pagination;
   }
 
   openDialog(data): void {
@@ -29,15 +37,12 @@ export class ManageFeaturesComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        const record = this.dataSource.find(item => item.id === result.id);
+        const record = this.list.find(item => item.id === result.id);
 
         record.value = result.value;
         record.updated_at = result.updated_at;
       }
     });
-  }
-  ngOnInit() {
-    this.fetchData();
   }
 }
 

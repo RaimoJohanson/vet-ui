@@ -2,7 +2,7 @@ export const AUTH_API_URL = 'https://gatey.ee/api';
 
 // 'http://localhost:3011';
 // 'https://gatey.ee/nellie';
-export const NELLIE_API_URL = 'https://gatey.ee/nellie';
+export const NELLIE_API_URL = 'http://localhost:3011';
 
 export const INPUT_MAP = {
   1: 'Jah',

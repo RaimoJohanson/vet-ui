@@ -43,7 +43,7 @@
           </div>
           <div class="spacer"></div>
           <div class="form-buttons">
-            <button mat-raised-button (click)="onNoClick()" type="button">Katkesta</button>
+            <button mat-raised-button (click)="dialogRef.close()" type="button">Katkesta</button>
             <button mat-raised-button color="accent" type="submit"
               [disabled]="data.value === formdata.value">Salvesta</button>
           </div>
@@ -52,9 +52,3 @@
     </mat-tab> <!-- /tab-->
   </mat-tab-group>
 </mat-dialog-content>
-<!--
-<mat-dialog-actions style="float: right">
-  <button mat-raised-button (click)="onNoClick()">Katkesta</button>
-  <button mat-raised-button color="accent" [mat-dialog-close]="formdata" cdkFocusInitial>Salvesta</button>
-</mat-dialog-actions>
--->

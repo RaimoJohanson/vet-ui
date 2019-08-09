@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NELLIE_API_URL } from '@app/config';
-import { Instance, Decision, Feature } from './data.models';
+import { Instance, Decision, Feature, FetchOptions, FeaturesPage, DecisionsPage } from './data.models';
 
 @Injectable()
 export class DataService {
@@ -16,8 +16,18 @@ export class DataService {
     return this.http.get<Feature[]>(`${NELLIE_API_URL}/features`).toPromise();
   }
 
+  featuresPage(params = {}): Promise<FeaturesPage> {
+    const url = `${NELLIE_API_URL}/admin/features`;
+    return this.http.get<FeaturesPage>(url, { params }).toPromise();
+  }
+
   decisions(): Promise<Decision[]> {
     return this.http.get<Decision[]>(`${NELLIE_API_URL}/decisions`).toPromise();
+  }
+
+  decisionsPage(params = {}): Promise<DecisionsPage> {
+    const url = `${NELLIE_API_URL}/admin/decisions`;
+    return this.http.get<DecisionsPage>(url, { params }).toPromise();
   }
 
   async composedData() {
