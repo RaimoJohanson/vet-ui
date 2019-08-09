@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AuthService, UserProfile } from '@app/services/authentication/auth.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar, MatBottomSheet } from '@angular/material';
+import { UploadProfileImageComponent } from './components/upload-profile-image/upload-profile-image.component';
 
 @Injectable()
 export class SettingsFacadeService {
@@ -10,12 +12,14 @@ export class SettingsFacadeService {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
+    private snackbar: MatSnackBar,
+    private bottomSheet: MatBottomSheet,
   ) {
     this.profileForm = this.generateUserForm(this.authService.profile);
     this.securityForm = this.generateSecurityForm();
   }
 
-  public submitUserSettings(form) {
+  public submitUserSettings(form: FormGroup) {
     try {
       console.log(form);
       // 1. Api call
@@ -28,18 +32,17 @@ export class SettingsFacadeService {
     }
   }
 
-  public submitSecuritySettings(form) {
-    console.log(form.value);
+  public submitSecuritySettings(form: FormGroup) {
+    console.log(form);
+    if (form.controls.newPassword.errors
+      && form.controls.newPassword.errors.mismatch) {
+      this.snackbar.open('Salasõnad ei ühti', null, { duration: 200000 });
+    }
+    // proceed;
   }
 
-  public uploadProfileImage(form) {
-    try {
-      console.log(form);
-      // 1. Api call
-      // 2. Update store;
-    } catch (error) {
-      console.log(error);
-    }
+  public uploadProfileImage() {
+    this.bottomSheet.open(UploadProfileImageComponent);
   }
 
   private generateUserForm(profile: UserProfile): FormGroup {
@@ -50,10 +53,19 @@ export class SettingsFacadeService {
       email: [profile.email],
     });
   }
+
+  private checkPasswords(group: FormGroup) {
+    const pass = group.get('password').value;
+    const confirmPass = group.get('confirm').value;
+    return pass === confirmPass ? null : { mismatch: true };
+  }
+
   private generateSecurityForm() {
     return this.fb.group({
-      password: [''],
-      passwordcheck: [''],
+      currentPassword: ['', Validators.required],
+      newPassword: this.fb.group(
+        { password: ['', Validators.required], confirm: ['', Validators.required] },
+        { validator: this.checkPasswords }),
     });
   }
 }

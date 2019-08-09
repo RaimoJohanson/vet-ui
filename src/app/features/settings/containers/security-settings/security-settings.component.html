@@ -1,11 +1,15 @@
 <div class="container">
   <form [formGroup]="form" (ngSubmit)="facade.submitSecuritySettings(form)"> 
     <mat-form-field>
-      <input type="password" formControlName="password" matInput placeholder="Salasõna">
+      <input type="password" formControlName="currentPassword" matInput placeholder="Kehtiv salasõna">
     </mat-form-field>
 
-    <mat-form-field>
-      <input type="password" formControlName="passwordcheck" matInput placeholder="Korda salaõna">
+    <mat-form-field formGroupName="newPassword">
+      <input type="password" formControlName="password" matInput placeholder="Uus salasõna">
+    </mat-form-field>
+
+    <mat-form-field formGroupName="newPassword">
+      <input type="password" formControlName="confirm" matInput placeholder="Korda uut salaõna">
     </mat-form-field>
 
     <div class="button-row">

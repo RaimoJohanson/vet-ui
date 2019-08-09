@@ -1,7 +1,7 @@
 <div class="container">
   <profile-image
     [src]="profileImageUrl"
-    (click)="facade.uploadProfileImage(profileForm)">
+    (click)="facade.uploadProfileImage()">
   </profile-image>
 
   <form [formGroup]="profileForm" (ngSubmit)="facade.submitUserSettings(profileForm)"> 
